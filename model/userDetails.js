@@ -17,11 +17,9 @@ const userSignupSchema = new Schema({
     password:{
         type:String
     },
-    urls:[{
-        url_id:{
-            type:mongoose.Schema.Types.ObjectId
-        }
-        }]
+    urls:{
+        type:Array
+    }
 })
 
 const UserSignupModel = mongoose.model('user_details',userSignupSchema)

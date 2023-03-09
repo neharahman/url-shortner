@@ -5,7 +5,9 @@ module.exports.getCode= async (req,res)=>{
         let find_code_UrlModel=await UrlModel.findOne({code})
         if(find_code_UrlModel){
             res.status(200).json({
-            message:'url not found please try again'})
+            message:'data found',
+            data:find_code_UrlModel.longUrl
+        })
         }
         else{
             res.status(200).json({

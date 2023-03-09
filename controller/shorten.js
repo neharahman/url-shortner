@@ -31,15 +31,16 @@ module.exports.shorten = async (req,res)=>{
                     code
                 })
                 let save_shorten_UrlModel=await shorten_UrlModel.save()
+                console.log('url id',save_shorten_UrlModel)
                 //so now i am adding the id of the url in my userDetails model
                 //to track how many url the user has been added to the urlModel
                 let find_UserSignupModel=await UserSignupModel.findById({_id:jwt.id})
                 if(find_UserSignupModel){
                     console.log('amar',find_UserSignupModel)
-                    find_UserSignupModel['urls'].push({url_id:save_shorten_UrlModel._id})
-                    let n=await UserSignupModel.findByIdAndUpdate({_id:jwt.id},find_UserSignupModel)
+                    find_UserSignupModel['urls'].push({url_id:save_shorten_UrlModel.id})
+                    console.log('updated user',find_UserSignupModel)
+                    await UserSignupModel.findByIdAndUpdate({_id:jwt.id},find_UserSignupModel)
                 }
-                
                 res.status(200).json({
                     status:'success',
                     message:'url shortner created',
